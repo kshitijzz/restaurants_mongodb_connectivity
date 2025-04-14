@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">HomePage</a></li>
+            <li><a href="/viewRestaurants">viewRestorents</a></li>
+            <li><a href="/insert_resto">AddReview</a></li>
+            <li><a href="/Register_form">Register</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Enter your credentials</h1>
+    <form method="post" action="/login" id="loginForm">
+        
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="user's name" name="uname" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" placeholder="user's password" name="upass" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="submit" class="bbtn">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <!-- <script>
+         document.getElementById("loginForm").addEventListener("submit", async (e)=>{
+            e.preventDefault();
+            const form= e.target;
+            const formdata= new FormData(form);
+
+            const data= new URLSearchParams(formdata);
+
+            const response= await fetch("/login",{
+                  method:"POST",
+                  body:data
+            });
+
+            const res=await response.text();
+            alert(res);
+            form.reset();
+         });
+    </script> -->
+</body>
+</html>

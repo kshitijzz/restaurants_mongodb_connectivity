@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register form</title>
+
+    <style>
+           * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #e76f51;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #f4a261;
+            width: 95%;
+            padding: 9px;
+        }
+
+        ul li {
+            list-style: none;
+            font-size: 25px;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #c44536;
+        }
+        body{
+            font-family: cursive;
+            background-color: #e9c46a;
+        }
+        form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e76f51;
+            width:475px;
+            border-radius: 10px;
+            padding: 10px;
+            color: #780000;
+            font-size: 18px;
+        }
+        .container{
+            display: flex;
+            width: 100vw;
+            /* height: 120vh; */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+           
+        }
+        h1{
+            background-color: #f4a261;
+            padding: 5px;
+            border-radius:10px ;
+            color: #c44536;
+            margin-top: 20px;
+            width:475px;
+            text-align: center;
+        }
+        input{
+            background-color:#e9c46a ;
+            border-style: none;
+            margin: 5px;
+            height: 40px;
+            width: 170px;
+            color:#780000;
+            font-family: cursive;
+            border-radius: 7px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        input::placeholder {
+         color:#e9c46a;
+         font-family: cursive;
+         }
+        .btn{
+           color: #780000;
+           font-size: 18px;
+           font-family: cursive;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">HomePage</a></li>
+            <li><a href="/viewRestaurants">viewRestorents</a></li>
+            <li><a href="/insert_resto">AddReview</a></li>
+            <li><a href="/Register_form">Register</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Enter your credentials</h1>
+    <form method="post" action="/Register" id="RegisterForm">
+        
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="user's name" name="uname" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" placeholder="user's password" name="upass" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="submit" class="bbtn">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <script>
+        document.getElementById("RegisterForm").addEventListener("submit", async (e)=>{
+            e.preventDefault();
+            const form=e.target;
+            const RegForm=new FormData(form);
+            const data= new URLSearchParams(RegForm);
+
+            const response = await fetch("/Register",
+                {
+                method:'POST',
+                body:data
+                }
+            );
+            const Res= await response.text();
+            alert(Res);
+            form.reset();
+
+        })
+    </script>
+</body>
+</html>

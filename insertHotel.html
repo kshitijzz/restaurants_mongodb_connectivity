@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Hotel</title>
+    <style>
+        td{
+            text-align: left;
+            width: 170px;
+        }
+        .btn{
+            text-align: center;
+        }
+        .inp{
+            width: 170px;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #e76f51;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #f4a261;
+            width: 95%;
+            padding: 9px;
+        }
+
+        ul li {
+            list-style: none;
+            font-size: 25px;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #c44536;
+        }
+        body{
+            font-family: cursive;
+            background-color: #e9c46a;
+        }
+        form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e76f51;
+            width:475px;
+            border-radius: 10px;
+            padding: 10px;
+            color: #780000;
+            font-size: 18px;
+        }
+        .container{
+            display: flex;
+            width: 100vw;
+            /* height: 120vh; */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+           
+        }
+        h1{
+            background-color: #f4a261;
+            padding: 5px;
+            border-radius:10px ;
+            color: #c44536;
+            margin-top: 20px;
+        }
+        input{
+            background-color:#e9c46a ;
+            border-style: none;
+            margin: 5px;
+            height: 40px;
+            width: 170px;
+            color:#780000;
+            font-family: cursive;
+            border-radius: 7px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        input::placeholder {
+         color:#780000;
+         font-family: cursive;
+         }
+        #btn{
+           color: #780000;
+           font-size: 18px;
+           font-family: cursive;
+        }
+        /* #btn:active{
+            box-shadow: 0 1px 0 #357ae8;
+            transform: translate(1px);
+        } */
+        #editedhd{
+            width: 475px;
+            text-align: center;
+        }
+    </style>
+</head> 
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">HomePage</a></li>
+            <li><a href="/viewRestaurants">viewRestorents</a></li>
+            <li><a href="/insert_resto">AddReview</a></li>
+            <li><a href="/Register_form">Register</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Enter a Hotel and it's Details</h1>
+    <form action="/add" method="post" id="restoForm">
+        <table>
+            <tr>
+                <td>Hotel Name:</td>
+                <td><input type="text" name="HName" required></td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td><input type="text" name="Location" required></td>
+            </tr>
+            <tr>
+                <td>priceRating(1 to 5)</td>
+                <td><input type="number" class="inp" name="rating" required min="1" max="5" ></td>
+            </tr>
+            <tr>
+                <td>qualityRating(1 to 5)</td>
+                <td><input type="number" class="inp" name="qRating" required min="1" max="5"></td>
+            </tr>
+            <tr>
+                <td>can_refer(true or false)</td>
+                <td><input type="text" name="canref" required></td>
+            </tr>
+            <tr>
+                <td>vegetarian(true or flase)</td>
+                <td><input type="text" name="veg" required></td>
+            </tr>
+            <tr>
+                <td>Hotel Image URL</td>
+                <td><input type="text" name="imageUrl" required placeholder="Paste image link here"></td>
+            </tr>
+            <tr>
+                <td class="btn" colspan="2"><input type="submit" id="btn" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+    <h1 id="editedhd">Edit Details if wrong</h1>
+    <form action="/edit" method="post" id="editForm">
+        <table>
+            <tr>
+                <td>Hotel Name</td>
+                <td><input type="text" name="HName"></td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td><input type="text" name="Location" required></td>
+            </tr>
+            <tr>
+                <td>priceRating(1 to 5)</td>
+                <td><input type="number" class="inp" name="rating" required min="1" max="5" ></td>
+            </tr>
+            <tr>
+                <td>qualityRating(1 to 5)</td>
+                <td><input type="number" class="inp" name="qRating" required min="1" max="5"></td>
+            </tr>
+            <tr>
+                <td>can_refer(true or false)</td>
+                <td><input type="text" name="canref" required></td>
+            </tr>
+            <tr>
+                <td>vegetarian(true or flase)</td>
+                <td><input type="text" name="veg" required></td>
+            </tr>
+            <tr>
+                <td>Hotel Image URL</td>
+                <td><input type="text" name="imageUrl" required placeholder="Paste image link here"></td>
+            </tr>
+            <tr>
+                <td class="btn" colspan="2">
+                    <input type="submit" value="Edit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <script>
+        document.getElementById("restoForm").addEventListener("submit",async (e)=>{
+        e.preventDefault();
+        const form= e.target;
+        const formdata= new FormData(form);
+        const data= new URLSearchParams(formdata);
+        
+        const response= await fetch("/add",{
+            method:"POST",
+            body:data,
+        });
+
+        const result= await response.text();
+        alert(result);
+        form.reset();
+        });
+        document.getElementById("editForm").addEventListener("submit", async (e)=>{
+            e.preventDefault();
+            const form= e.target;
+            const editdataform= new FormData(form);
+            const data = new URLSearchParams(editdataform);
+
+            const response= await fetch("/edit",
+                {
+                 method:"post",
+                 body:data
+                }
+            );
+            const res= await response.text();
+            alert(res);
+            form.reset();
+        })
+        window.onload=()=>{
+            const parms= new URLSearchParams(window.location.search);
+            if(parms.get("edit")=="true"){
+                document.querySelector("#editForm input[name='HName']").value= parms.get("Name");
+                document.querySelector("#editForm input[name='Location']").value = parms.get("Location");
+                document.querySelector("#editForm input[name='rating']").value = parms.get("priceRating");
+                document.querySelector("#editForm input[name='qRating']").value = parms.get("qualityRating");
+                document.querySelector("#editForm input[name='canref']").value = parms.get("can_refer");
+                document.querySelector("#editForm input[name='veg']").value = parms.get("is_veg");
+                
+                document.getElementById("editForm").scrollIntoView({behavior:"smooth"});
+            }
+
+        }
+    </script>
+</body>
+</html>
